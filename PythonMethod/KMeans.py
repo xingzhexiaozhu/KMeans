@@ -10,11 +10,11 @@ class KMeans(object):
         self.points = []
         # 簇中心点
         self.center_points = []
-        # 聚类结果的集合簇
+        # 聚类结果的集合簇，是一个字典：key为簇中心点在center_points中的下标，value为簇中点集合list
         self.clusters = {}
         # 类簇个数
         self.num = num
-        # 读文件
+        # 加载数据集
         self.loadData(data)
 
     def loadData(self, dataset):
@@ -43,7 +43,10 @@ class KMeans(object):
     # 计算每个点所划分的簇
     def dispatchPointToCluster(self, point):
         index = 0
-        min_distance = 100.0
+        # a number that's bigger than all others
+        min_distance = float('inf')
+        # a number that's smaller than all others
+        # float('-inf')
         for i in range(len(self.center_points)):
             distance = self.getDistance(point, self.center_points[i])
             if distance < min_distance:
